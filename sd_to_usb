@@ -1,0 +1,47 @@
+As result, SD card will be used only like initial boot device, root file system will be moved to USB disk or USB flash drive
+
+1)Prepare USB stick (can be SSD or HDD disk). backup all data
+
+2)Inset USB drive into Orange Pi
+
+3)Find drive name using lsblk, in my case it where /dev/sda
+lsblk
+
+3)Delete all aprtition, all your data will be lost (start programm, d - for delete, w - for write). I pressed d for 3 times, because I've got 3 partitions. 
+3.1)Write changes, after finished.
+fdisk /dev/sda
+d
+w
+
+4)Create new partition. N - new partition, p - primary, w - write changes
+fdisk /dev/sda
+n
+p
+w
+
+5)Format your disk
+sudo mke2fs -t ext4 -L rootfs /dev/sda1
+
+6)Mount disk to /mnt folder
+mount /dev/sda1 /mnt
+
+7)Copy all files from current SD card to USB drive (a- archive mode, x- don't cross filesystem boundaries, v- increase verbosity) 
+rsync -axv / /mnt
+
+8)Make a backup of systemfiles
+cp /boot/armbianEnv.txt /boot/armbianEnv.txt.bcp
+
+9)Find USB device uuid, in my case it where "/dev/sda1: UUID="b0b84b5c-1807-47af-9ed8-094fbbac62dd""
+blkid
+
+9)Edit /boot/armbianEnv.txt, change rootdev paramete to USB drive UUID
+vi /boot/armbianEnv.txt
+
+10)Make new image
+mkimage -C none -A arm -T script -d /boot/boot.cmd /boot/boot.scr 
+
+11)Reboot device
+reboot
+
+12)Check the system
+df -h
