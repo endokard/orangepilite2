@@ -1,2 +1,2 @@
 # orangepilite2
-Configuring
+1. Install Armbian
