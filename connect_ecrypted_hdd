@@ -1,0 +1,18 @@
+Connect encrypted external hard drive to USB 3.0
+
+1)Connect external HDD to USB 3.0
+
+2)Install encryption utility
+apt install cryptsetup
+
+3)List avaliable devices, in my case /dev/sdb
+fdisk -l
+
+4)Create mount directory
+mkdir /srv/exthdd
+
+5)Decryp hard drive with passphrase and create new device under /dev/mapper named "lukshdd"
+cryptsetup luksOpen /dev/sdb lukshdd
+
+6)Mount drive to "/srv/exthdd"
+mount /dev/mapper/lukshdd /srv/exthdd
