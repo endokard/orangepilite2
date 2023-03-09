@@ -30,3 +30,6 @@ services:
 
 4)Run in background
 docker compose -f /home/Olos/yml/transmission.yml up -d
+
+5)Test installation in browser
+http://_YOUR_IP_:9091
