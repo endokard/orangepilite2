@@ -30,3 +30,8 @@ apt-get install docker-compose-plugin
 
 11)Test compose installation
 docker compose version
+
+12)In case, if you will got problem with apparmor during container start up, e.g. "docker unable to apply apparmor profile", try to run:
+sudo apt-get purge apparmor apparmor-profiles apparmor-utils
+sudo apt-get install apparmor-utils apparmor-profiles apparmor-profiles-extra
+reboot
