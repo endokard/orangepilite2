@@ -1,0 +1,28 @@
+We are using some directories from transmission manual, transmission and plex will share "/srv/exthdd/transmission/downloads" folder
+
+1)Create directories for plex
+mkdir /srv/exthdd/docker/plex/config
+
+3)Create and modify yml file , all params can be found here https://hub.docker.com/r/linuxserver/plex
+3.1)Don not forget to get Plex Claim , from plex web page, it valid only several minutes!!!!
+vi /home/Olos/yml/plex.yml
+
+docker run -d \
+  --name=plex \
+  --net=host \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Europe/Oslo \
+  -e VERSION=docker \
+  -e PLEX_CLAIM=`claim-sEGqYcDmBFQL4NnT72TV` \
+  -v /srv/exthdd/docker/plex/config:/config \
+  -v /srv/exthdd/docker/transmission/downloads/complete/tv:/tv \
+  -v /srv/exthdd/docker/transmission/downloads/complete/movies:/movies \
+  --restart unless-stopped \
+  lscr.io/linuxserver/plex:latest
+
+4)Run in background
+docker compose -f /home/Olos/yml/plex.yml up -d
+
+5)Test installation in browser
+http://_YOUR_IP_:
