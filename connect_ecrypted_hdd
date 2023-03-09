@@ -16,3 +16,7 @@ cryptsetup luksOpen /dev/sdb lukshdd
 
 6)Mount drive to "/srv/exthdd"
 mount /dev/mapper/lukshdd /srv/exthdd
+
+7)Unmount and disconnet
+umount /srv/exthdd
+cryptsetup luksClose /dev/mapper/lukshdd
