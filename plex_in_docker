@@ -25,4 +25,4 @@ docker run -d \
 docker compose -f /home/Olos/yml/plex.yml up -d
 
 5)Test installation in browser
-http://_YOUR_IP_:
+http://_YOUR_IP_:32400
