@@ -1,0 +1,32 @@
+1)Create a directory for yml file
+mkdir /home/Olos/yml
+
+2)Create directories for transmission
+mkdir /srv/exthdd/transmission/config
+mkdir /srv/exthdd/transmission/downloads
+mkdir /srv/exthdd/transmission/watch
+
+3)Create and modify yml file , all params can be found here https://hub.docker.com/r/linuxserver/transmission/
+vi /home/Olos/yml/transmission.yml
+
+version: "2.1"
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Oslo
+    volumes:
+      - /srv/exthdd/transmission/config:/config
+      - /srv/exthdd/transmission/downloads:/downloads
+      - /srv/exthdd/transmission/watch:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
+
+4)Run in background
+docker compose -f /home/Olos/yml/transmission.yml up -d
